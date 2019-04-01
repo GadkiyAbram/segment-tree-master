@@ -115,11 +115,99 @@ function recursiveSegmentTree(array, fn, N) {
         let result = fn(p1, p2);
         return fn(N, result);
     }
-    for (let i = 0; i < (array.length * 16); i++){
-        t[i] = new Array(array.length * 16);
+
+
+    //building 3D tree
+
+    function buildThree_Y(vz, lz, rz, vx, lx, rx, vy, ly, ry, array){
+        if (ly == ry){
+            if (lx == rx && lz == rz){
+                t[vz][vx][vy] = array[lz][lx][ly];
+            }
+            else if (lx == rx && lz != rz){
+                t[vz][vx][vy] = fn(t[2 * vz][vx][vy], t[2 * vz + 1][vx][vy]);
+            }
+            else if (lx != rx && lz == rz){
+                t[vz][vx][vy] = fn(t[vz][2 * vx][vy], t[vz][2 * vx + 1][vy]);
+            }
+            else if (lx != rx && lz != rz){
+                t[vz][vx][vy] = fn(
+                    fn(t[2 * vz][2 * vx][vy], t[2 * vz + 1][2 * vx][vy]),
+                    fn(t[2 * vz][2 * vx + 1][vy], t[2 * vz + 1][2 * vx + 1][vy]));
+            }
+        }else{
+            let vmiddleY = Math.floor((ly + ry) / 2);
+            buildThree_Y(vz, lz, rz, vx, lx, rx,2 * vy, ly, vmiddleY, array);
+            buildThree_Y(vz, lz, rz, vx, lx, rx,2 * vy + 1, vmiddleY + 1, ry, array);
+            t[vz][vx][vy] = fn(t[vz][vx][2 * vy], t[vz][vx][2 * vy + 1]);
+        }
     }
 
+    function buildThree_X(vz, lz, rz, vx, lx, rx, array){
+        if (lx != rx){
+            let vmiddleX = Math.floor((lx + rx) / 2);
+            buildThree_X(vz, lz, rz, 2 * vx, lx, vmiddleX, array);
+            buildThree_X(vz, lz, rz, 2 * vx + 1, vmiddleX + 1, rx, array);
+        }
+        buildThree_Y(vz, lz, rz, vx, lx, rx, 1, 0, 1, array);                    //COLUMNS!!!!!
+    }
+
+    function buildThree_Z(vz, lz, rz, array){
+        if (lz != rz){
+            let vmiddleZ = Math.floor((lz + rz) / 2);
+            buildThree_Z(2 * vz, lz, vmiddleZ, array);
+            buildThree_Z(2 * vz + 1, vmiddleZ + 1, rz, array);
+        }
+        buildThree_X(vz, lz, rz, 1, 0, 3, array);
+    }
+
+    function sum_z(vx, vy, vz, start, end, lz, rz, N){     //z
+        if (rz < start || end < lz) { return N; }
+
+        if (start >= lz && end <= rz){
+            return t[vx][vy][vz];
+        }
+        let mid = Math.floor((start + end) / 2);
+        let p1 = sum_z(vx, vy, 2 * vz, start, mid, lz, rz, N);
+        let p2 = sum_z(vx, vy, 2 * vz + 1, mid + 1, end, lz, rz, N);
+        let result = fn(p1, p2);
+        return fn(N, result);
+    }
+
+    function sum_y(vx, vy, start, end, ly, ry, lz, rz, N){     //y, z
+        if (ry < start || end < ly) { return N; }
+
+        if(start >= ly && end <= ry)
+        {
+            return sum_z(vx, vy, 1, 0, 1, lz, rz, N);
+        }
+        let mid = Math.floor((start + end) / 2 );
+        let p1 = sum_y(vx, 2 * vy, start, mid, ly, ry, lz, rz, N);
+        let p2 = sum_y(vx, 2 * vy + 1, mid + 1, end, ly, ry, lz, rz, N);
+        let result = fn(p1, p2);
+        return fn(N, result);
+    }
+
+    function sum_x(vx, start, end, lx, rx, ly, ry, lz, rz, N){     //y, x, z
+        if (rx < start || end < lx) { return N; }
+
+        if(lx <= start && end <= rx)
+        {
+            return sum_y(vx, 1,  0, 3, ly, ry, lz, rz, N);
+        }
+        let mid = Math.floor((start + end) / 2);
+        let p1 = sum_x(2 * vx, start, mid, lx, rx, ly, ry, lz, rz, N);
+        let p2 = sum_x(2 * vx  + 1, mid + 1, end, lx, rx, ly, ry, lz, rz, N);
+        let result = fn(p1, p2);
+        return fn(N, result);
+    }
+
+
     return function (from, to) {
+
+        for (let i = 0; i < (array.length * 16); i++){
+            t[i] = new Array(array.length * 16);
+        }
 
         if (from < 0 || array.length < to){
             throw new Error("Out of range");
@@ -136,7 +224,7 @@ function recursiveSegmentTree(array, fn, N) {
 
             return queryOneDTree(1, 0, array.length - 1, from, to - 1, N, fn);
 
-        } else if (Array.isArray(array[0])){
+        } else if (Array.isArray(array[0][0]) == false){
 
             build_X(1, 0, array.length - 1, array);
 
@@ -144,7 +232,22 @@ function recursiveSegmentTree(array, fn, N) {
                 return query(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, array, N);
             }
 
-        }else if (Array.isArray(array[0][0])){
+        }else if (Array.isArray(array[0][0]) == true){
+
+            for (let i = 0; i < (array.length * 16); i++){
+                for (let j = 0; j < (array[0].length * 16); j++){
+                        t[i][j] = new Array(500);
+                }
+            }
+
+            buildThree_Z(1, 0, 3, array);
+
+            return function(from1, to1){
+                return function(from2, to2){
+                    return sum_x(1, 0, 3, from, to - 1, from1, to1 - 1, from2, to2 - 1, N);
+                }
+            }
+
         }
 
         return result;
