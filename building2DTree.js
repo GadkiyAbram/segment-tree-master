@@ -6,7 +6,8 @@ function build_Y(vx, lx, rx, vy, ly, ry, array, fn){
             t[vx][vy] = fn(t[2 * vx][vy], t[2 * vx + 1][vy]);
         }
     }else{
-        let vmiddleY = Math.floor((ry + ly) / 2);
+        let vmiddleY = Math.floor(ly + (ry - ly) / 2);
+
         build_Y(vx, lx, rx, 2 * vy, ly, vmiddleY, array, fn);
         build_Y(vx, lx, rx, 2 * vy + 1, vmiddleY + 1, ry, array, fn);
         t[vx][vy] = fn(t[vx][2 * vy], t[vx][2 * vy + 1]);

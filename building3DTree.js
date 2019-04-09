@@ -1,5 +1,4 @@
 function buildThree_Y(vz, lz, rz, vx, lx, rx, vy, ly, ry, array, fn){
-    // console.log("array[][].length = " + (array[0][0].length - 1));
     if (ly == ry){
         if (lx == rx && lz == rz){
             t[vz][vx][vy] = array[lz][lx][ly];
@@ -16,12 +15,8 @@ function buildThree_Y(vz, lz, rz, vx, lx, rx, vy, ly, ry, array, fn){
                 fn(t[2 * vz][2 * vx + 1][vy], t[2 * vz + 1][2 * vx + 1][vy]));
         }
     }else{
-        // console.log("ry = " + ry + ", ly = " + ly);
-        let vmiddleY = Math.floor((ry + ly) / 2);
-        if (vmiddleY == -1){
-            return;
-        }                            //CHEAT!!!
-        // console.log("vmiddleY = " + vmiddleY);
+        let vmiddleY = Math.floor(ly + (ry - ly) / 2);
+        if (vmiddleY == -1){ return; }                            //CHEAT!!!
 
         buildThree_Y(vz, lz, rz, vx, lx, rx,2 * vy, ly, vmiddleY, array, fn);
 
@@ -32,24 +27,19 @@ function buildThree_Y(vz, lz, rz, vx, lx, rx, vy, ly, ry, array, fn){
 
 function buildThree_X(vz, lz, rz, vx, lx, rx, array, fn){
     if (lx != rx){
-        // let vmiddleX = Math.floor((lx + rx) / 2);
         let vmiddleX = Math.floor(lx + (rx - lx) / 2);
         buildThree_X(vz, lz, rz, 2 * vx, lx, vmiddleX, array, fn);
         buildThree_X(vz, lz, rz, 2 * vx + 1, vmiddleX + 1, rx, array, fn);
     }
-    console.log("ry = " + (array[0][0].length - 1));
     buildThree_Y(vz, lz, rz, vx, lx, rx, 1, 0, array[0][0].length - 1, array, fn);           //ry = 1
 }
 
 function buildThree_Z(vz, lz, rz, array, fn){
-    console.log("rz = " + rz);
     if (lz != rz){
-        // let vmiddleZ = Math.floor((lz + rz) / 2);
         let vmiddleZ = Math.floor(lz + (rz - lz) / 2);
         buildThree_Z(2 * vz, lz, vmiddleZ, array, fn);
         buildThree_Z(2 * vz + 1, vmiddleZ + 1, rz, array, fn);
     }
-    // console.log("array[0].length = " + array[0].length);
     buildThree_X(vz, lz, rz, 1, 0, array[0].length - 1, array, fn);       //rx = 3
 }
 
