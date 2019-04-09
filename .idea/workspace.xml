@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9a38f9cc-9704-443d-8990-70e6ea8fc91b" name="Default Changelist" comment="">
+    <list default="true" id="9a38f9cc-9704-443d-8990-70e6ea8fc91b" name="Default Changelist" comment="distributions added">
+      <change afterPath="$PROJECT_DIR$/building2DTree.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/building3DTree.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/segment-tree.js" beforeDir="false" afterPath="$PROJECT_DIR$/segment-tree.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,8 +23,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/segment-tree.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="86" column="59" lean-forward="true" selection-start-line="86" selection-start-column="59" selection-end-line="86" selection-end-column="59" />
+            <state relative-caret-position="833">
+              <caret line="234" column="6" selection-start-line="234" selection-start-column="6" selection-end-line="234" selection-end-column="6" />
+              <folding>
+                <marker date="1554746418012" expanded="false" signature="3:251" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/building3DTree.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="23" column="8" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -28,24 +44,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="205" column="44" lean-forward="true" selection-start-line="197" selection-start-column="3" selection-end-line="205" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
+            <state relative-caret-position="-110">
+              <caret line="366" column="33" lean-forward="true" selection-start-line="366" selection-start-column="33" selection-end-line="366" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -72,8 +83,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tests.js" />
         <option value="$PROJECT_DIR$/X1DTree.js" />
+        <option value="$PROJECT_DIR$/tests.js" />
+        <option value="$PROJECT_DIR$/building2DTree.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/building3DTree.js" />
         <option value="$PROJECT_DIR$/segment-tree.js" />
       </list>
     </option>
@@ -125,6 +139,16 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="segment-tree.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/segment-tree.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.segment-tree.js" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -144,6 +168,14 @@
       <workItem from="1553941105593" duration="876000" />
       <workItem from="1554018233214" duration="2262000" />
       <workItem from="1554039612537" duration="3846000" />
+      <workItem from="1554102320544" duration="1141000" />
+      <workItem from="1554129072730" duration="766000" />
+      <workItem from="1554190686013" duration="14346000" />
+      <workItem from="1554365246718" duration="27091000" />
+      <workItem from="1554609167198" duration="3233000" />
+      <workItem from="1554650652207" duration="239000" />
+      <workItem from="1554709896737" duration="5000" />
+      <workItem from="1554712742733" duration="11544000" />
     </task>
     <task id="LOCAL-00001" summary="function nextState moved at the bottom">
       <created>1553424661785</created>
@@ -159,16 +191,31 @@
       <option name="project" value="LOCAL" />
       <updated>1553876410585</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added building / query for 3D tree">
+      <created>1554102393505</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1554102393505</updated>
+    </task>
+    <task id="LOCAL-00004" summary="distributions added">
+      <created>1554532867375</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1554532867376</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57566000" />
+    <option name="totallyTimeSpent" value="115931000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="948" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="947" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2585895" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2585895" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -183,9 +230,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49909583" weight="0.32748538" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49909583" weight="0.3271028" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4996986" weight="0.32827103" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50030136" side_tool="true" weight="0.32865497" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32943925" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -242,7 +290,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="function nextState moved at the bottom" />
     <MESSAGE value="function nextState moved at the bottom&#10;&#10;3D tree building" />
-    <option name="LAST_COMMIT_MESSAGE" value="function nextState moved at the bottom&#10;&#10;3D tree building" />
+    <MESSAGE value="added building / query for 3D tree" />
+    <MESSAGE value="distributions added" />
+    <option name="LAST_COMMIT_MESSAGE" value="distributions added" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/jasmine/lib/jasmine-2.5.2/jasmine.js">
@@ -253,34 +303,49 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/X1DTree.js" />
-    <entry file="file://$USER_HOME$/Downloads/segment-tree.js">
+    <entry file="file://$USER_HOME$/Downloads/segment-tree.js" />
+    <entry file="file://$PROJECT_DIR$/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="57" column="6" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="57" selection-end-column="6" />
+        <state>
+          <caret column="76" selection-start-column="1" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils.js">
+    <entry file="file://$PROJECT_DIR$/building2DTree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
+        <state relative-caret-position="735">
+          <caret line="49" column="75" selection-start-line="49" selection-start-column="75" selection-end-line="49" selection-end-column="75" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="205" column="44" lean-forward="true" selection-start-line="197" selection-start-column="3" selection-end-line="205" selection-end-column="44" />
+        <state relative-caret-position="-110">
+          <caret line="366" column="33" lean-forward="true" selection-start-line="366" selection-start-column="33" selection-end-line="366" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/building3DTree.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="23" column="8" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/segment-tree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="86" column="59" lean-forward="true" selection-start-line="86" selection-start-column="59" selection-end-line="86" selection-end-column="59" />
+        <state relative-caret-position="833">
+          <caret line="234" column="6" selection-start-line="234" selection-start-column="6" selection-end-line="234" selection-end-column="6" />
+          <folding>
+            <marker date="1554746418012" expanded="false" signature="3:251" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
