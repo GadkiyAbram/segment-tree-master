@@ -75,27 +75,15 @@ function recursiveSegmentTree(array, fn, N) {
         if (from == to) { return N; }
 
         let result = N;
-        if (Array.isArray(array[0]) == false){
-
-            buildOneDTree(1, 0, array.length - 1, array, fn, N);
-
-            return queryOneDTree(1, 0, array.length - 1, from, to - 1, N, fn);
-
-        } else if (Array.isArray(array[0][0]) == false){
-
-            build_X(1, 0, array.length - 1, array, fn);
-
-            return function(from1, to1){
-                return query(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, array, N, fn);
-            }
-
-        }else if (Array.isArray(array[0][0]) == true) {          // == true
-        // }else if (array[0][0].length > 0){
-            console.log("array length: " + array[0][0].length);
+        if (array[0][0] instanceof Array) {
+        // if (Array.isArray(array[0][0]) == true) {          // == true
+            // }else if (array[0][0].length > 0){
+            //     console.log("array length: " + array[0][0].length);
 
             for (let i = 0; i < (array.length * 16); i++){
                 for (let j = 0; j < (array[0].length * 16); j++){
-                    t[i][j] = new Array(array[0][0].length * 16);
+                    t[i][j] = new Array(array[0].length * 16);
+                    // t[i][j] = new Array(array.length * 16);
                 }
             }
 
@@ -107,6 +95,25 @@ function recursiveSegmentTree(array, fn, N) {
                     return sum_x(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, from2, to2 - 1, N, array, fn);
                 }
             }
+        } else if (array[0] instanceof Array){
+        // } else if (Array.isArray(array[0]) == true){
+
+            for (let i = 0; i < (array.length * 16); i++){
+                t[i] = new Array(array.length * 16);
+            }
+
+            build_X(1, 0, array.length - 1, array, fn);
+
+            return function(from1, to1){
+                return query(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, array, N, fn);
+            }
+        } else if (array instanceof Array){
+        // } else if (Array.isArray(array[0]) == false){
+
+            buildOneDTree(1, 0, array.length - 1, array, fn, N);
+
+            return queryOneDTree(1, 0, array.length - 1, from, to - 1, N, fn);
+
         }
 
         return result;
@@ -130,8 +137,6 @@ function minimumData(array) {
 
     return minGems;
 }
-
-
 
 function assignEqually(tree, wishes, stash, elves, gems, week) {
 
@@ -175,10 +180,12 @@ function assignAtLeastOne(tree, wishes, stash, elves, gems, week) {
     let gemsCount = [];
 
     // console.log(elves);
+    // console.log("gems = " + gems);
+    // console.log("week = " + week);
     // console.log(stash);
 
     for (let i = 0; i < elves.length; i++){
-        let tmp = tree(i, i + 1)(0, gems.length)(week, week + 1);
+        let tmp = tree(i, i + 1)(0, gems.length)(0, week);
         gemsCount.push(tmp);
     }
 
@@ -197,26 +204,19 @@ function assignAtLeastOne(tree, wishes, stash, elves, gems, week) {
         }
     }
 
-    // console.log(assignment);
-    // console.log("///***///***///***");
+    console.log(assignment);
+    console.log("///***///***///***");
     return assignment;
 }
+
 
 function assignPreferredGems(tree, wishes, stash, elves, gems) {
     let result = {};
     for (gem in stash) {
 
-        // console.log(wishes);
-        // console.log(elves);
-        // console.log(gems);
-
-
         let elvesWishes = elves.map(elf => wishes[elves.indexOf(elf)][gems.indexOf(gem)])
-        // console.log(elvesWishes);
 
         elvesWishes = elvesWishes.map(ew => 1 - ew);
-        // console.log(elvesWishes);
-
 
         let minGems = minimumData(elvesWishes);
         let hasMinNum = elvesWishes.indexOf(minGems);
@@ -227,19 +227,19 @@ function assignPreferredGems(tree, wishes, stash, elves, gems) {
         {
             result[elves[hasMinNum]][gem] = 0;
         }
+        // result[elves[hasMinNum]][gem] += stash[gem];
         result[elves[hasMinNum]][gem] += stash[gem];
     }
     return result;
 }
 
 function nextState(state, assignment, elves, gems) {
-    // console.log(state);
-    // console.log(assignment);
     for (let elf = 0; elf < state.length; elf++){
         for (let gem = 0; gem < state[elf].length; gem++){
 
             elves[elf] in assignment && gems[gem] in assignment[elves[elf]] ?
                 state[elf][gem].push(assignment[elves[elf]][gems[gem]]) : state[elf][gem].push(0);
+
         }
     }
     return state;
