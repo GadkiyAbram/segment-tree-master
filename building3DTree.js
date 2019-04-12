@@ -3,23 +3,28 @@ function buildThree_Y(vz, lz, rz, vx, lx, rx, vy, ly, ry, array, fn){
         if (lx == rx && lz == rz){
             t[vz][vx][vy] = array[lz][lx][ly];
         }
-        else if (lx == rx && lz != rz){
+        if (lx == rx && lz != rz){
             t[vz][vx][vy] = fn(t[2 * vz][vx][vy], t[2 * vz + 1][vx][vy]);
         }
-        else if (lx != rx && lz == rz){
+        if (lx != rx && lz == rz){
             t[vz][vx][vy] = fn(t[vz][2 * vx][vy], t[vz][2 * vx + 1][vy]);
         }
-        else if (lx != rx && lz != rz){
+        if (lx != rx && lz != rz){
             t[vz][vx][vy] = fn(
                 fn(t[2 * vz][2 * vx][vy], t[2 * vz + 1][2 * vx][vy]),
                 fn(t[2 * vz][2 * vx + 1][vy], t[2 * vz + 1][2 * vx + 1][vy]));
+            return;
         }
     }else{
-        let vmiddleY = Math.floor(ly + (ry - ly) / 2);
+        // if (ry > ly){
+        //     let vmiddleY = Math.floor((ly + ry) / 2);
+        //     buildThree_Y(vz, lz, rz, vx, lx, rx,2 * vy, ly, vmiddleY, array, fn);
+        //     buildThree_Y(vz, lz, rz, vx, lx, rx,2 * vy + 1, vmiddleY + 1, ry, array, fn);
+        // }
+        // t[vz][vx][vy] = fn(t[vz][vx][2 * vy], t[vz][vx][2 * vy + 1]);
+        let vmiddleY = Math.floor((ly + ry) / 2);
         if (vmiddleY == -1){ return; }                            //CHEAT!!!
-
         buildThree_Y(vz, lz, rz, vx, lx, rx,2 * vy, ly, vmiddleY, array, fn);
-
         buildThree_Y(vz, lz, rz, vx, lx, rx,2 * vy + 1, vmiddleY + 1, ry, array, fn);
         t[vz][vx][vy] = fn(t[vz][vx][2 * vy], t[vz][vx][2 * vy + 1]);
     }
