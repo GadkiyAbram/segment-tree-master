@@ -5,6 +5,7 @@ function build_Y(vx, lx, rx, vy, ly, ry, array, fn){
         }else{
             t[vx][vy] = fn(t[2 * vx][vy], t[2 * vx + 1][vy]);
         }
+        return;
     }else{
         let vmiddleY = Math.floor(ly + (ry - ly) / 2);
 
