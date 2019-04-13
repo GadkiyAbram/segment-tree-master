@@ -1,34 +1,3 @@
-// let t = new Array();
-
-//building X1D segment tree
-function buildOneDTree(v, vleft, vright, array, fn, N, t) {
-    // let t = new Array(array.length * 4);
-    if (vleft == vright){
-        t[v] = array[vleft];
-        return;
-    }
-
-    let vmiddle = Math.floor(vleft + (vright - vleft) / 2);
-    buildOneDTree(2 * v, vleft, vmiddle, array, fn, N, t);
-    buildOneDTree(2 * v + 1, vmiddle + 1, vright, array, fn, N, t);
-    t[v] = fn(t[2 * v], t[2 * v + 1]);
-}
-
-//sum of X1D segment tree
-function queryOneDTree(v, vleft, vright, from, to, N, fn, t) {
-    if (to < vleft || vright < from){
-        return N;
-    }
-    if (vleft >= from && vright <= to){
-        return t[v];
-    }
-    let vmiddle = Math.floor(vleft + (vright - vleft) / 2);
-    let ql = queryOneDTree(2 * v, vleft, vmiddle, from, to, N, fn, t);
-    let qr = queryOneDTree(2 * v + 1, vmiddle + 1, vright, from, to, N, fn, t);
-    let res = fn(ql, qr);
-    return fn(N, res);
-}
-
 function segmentTree(array, fn, N) {
 
     let t = new Array(array.length * 4);
@@ -62,8 +31,11 @@ function recursiveSegmentTree(array, fn, N) {
                 t[i][j] = new Array();
             }
         }
-        array[0][0].length == 0 ? build_X(1, 0, array.length - 1, array, fn, t) :
+
+        array[0][0].length == 0 ?
+            build_X(1, 0, array.length - 1, array, fn, t) :
             buildThree_Z(1, 0, array.length - 1, array, fn, t);
+
     } else if (Array.isArray(array[0])){
         for (let i = 0; i < array.length * 4; i++){
             t[i] = new Array();

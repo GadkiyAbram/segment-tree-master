@@ -1,5 +1,4 @@
 function build_Y(vx, lx, rx, vy, ly, ry, array, fn, t){
-    // console.log(Array.from(arguments));
     if (ly == ry){
         if (lx == rx){
             t[vx][vy] = array[lx][ly];
@@ -17,11 +16,6 @@ function build_Y(vx, lx, rx, vy, ly, ry, array, fn, t){
 }
 
 function build_X(vx, lx, rx, array, fn, t){
-    // let t = new Array(array.length * 4);
-    // for (let i = 0; i < array.length * 4; i++){
-    //     t[i] = new Array(array.length * 4);
-    // }
-    // console.log(Array.from(arguments));
     if (lx != rx){
         let vmiddleX = Math.floor((rx + lx) / 2);
         build_X(2 * vx, lx, vmiddleX, array, fn, t);
@@ -57,8 +51,4 @@ function query(pos, start, end, y1, y2, x1, x2, array, N, fn, t){
     let p2 = query(2 * pos + 1, mid + 1, end, y1, y2, x1, x2, array, N, fn, t);
     let result = fn(p1, p2);
     return fn(N, result);
-}
-
-function twoDArray() {
-
 }
