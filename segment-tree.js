@@ -1,20 +1,21 @@
-var t = new Array();
+// let t = new Array();
 
 //building X1D segment tree
-function buildOneDTree(v, vleft, vright, array, fn, N) {
+function buildOneDTree(v, vleft, vright, array, fn, N, t) {
+    // let t = new Array(array.length * 4);
     if (vleft == vright){
         t[v] = array[vleft];
         return;
     }
 
     let vmiddle = Math.floor(vleft + (vright - vleft) / 2);
-    buildOneDTree(2 * v, vleft, vmiddle, array, fn, N);
-    buildOneDTree(2 * v + 1, vmiddle + 1, vright, array, fn, N);
+    buildOneDTree(2 * v, vleft, vmiddle, array, fn, N, t);
+    buildOneDTree(2 * v + 1, vmiddle + 1, vright, array, fn, N, t);
     t[v] = fn(t[2 * v], t[2 * v + 1]);
 }
 
 //sum of X1D segment tree
-function queryOneDTree(v, vleft, vright, from, to, N, fn) {
+function queryOneDTree(v, vleft, vright, from, to, N, fn, t) {
     if (to < vleft || vright < from){
         return N;
     }
@@ -22,13 +23,15 @@ function queryOneDTree(v, vleft, vright, from, to, N, fn) {
         return t[v];
     }
     let vmiddle = Math.floor(vleft + (vright - vleft) / 2);
-    let ql = queryOneDTree(2 * v, vleft, vmiddle, from, to, N, fn);
-    let qr = queryOneDTree(2 * v + 1, vmiddle + 1, vright, from, to, N, fn);
+    let ql = queryOneDTree(2 * v, vleft, vmiddle, from, to, N, fn, t);
+    let qr = queryOneDTree(2 * v + 1, vmiddle + 1, vright, from, to, N, fn, t);
     let res = fn(ql, qr);
     return fn(N, res);
 }
 
 function segmentTree(array, fn, N) {
+
+    let t = new Array(array.length * 4);
 
     return function (from, to) {
         if (from < 0 || array.length < to){
@@ -40,9 +43,9 @@ function segmentTree(array, fn, N) {
         }
         if (from == to) { return N; }
 
-        buildOneDTree(1, 0, array.length - 1, array, fn, N);
+        buildOneDTree(1, 0, array.length - 1, array, fn, N, t);
 
-        result = queryOneDTree(1, 0, array.length - 1, from, to - 1, N, fn);
+        result = queryOneDTree(1, 0, array.length - 1, from, to - 1, N, fn, t);
 
         return result;
     };
@@ -50,7 +53,28 @@ function segmentTree(array, fn, N) {
 
 function recursiveSegmentTree(array, fn, N) {
 
+    let t = new Array(array.length * 4);
+
+    if (Array.isArray(array[0][0])) {
+        for (let i = 0; i < array.length * 4; i++){
+            t[i] = new Array();
+            for (let j = 0; j < array[0].length * 4; j++){
+                t[i][j] = new Array();
+            }
+        }
+        array[0][0].length == 0 ? build_X(1, 0, array.length - 1, array, fn, t) :
+            buildThree_Z(1, 0, array.length - 1, array, fn, t);
+    } else if (Array.isArray(array[0])){
+        for (let i = 0; i < array.length * 4; i++){
+            t[i] = new Array();
+        }
+        build_X(1, 0, array.length - 1, array, fn, t);
+    } else {
+        buildOneDTree(1, 0, array.length - 1, array, fn, N, t);
+    }
+
     return function (from, to) {
+
 
         if (from < 0 || array.length < to){
             throw new Error("Out of range");
@@ -62,43 +86,20 @@ function recursiveSegmentTree(array, fn, N) {
 
         let result = N;
         if (Array.isArray(array[0][0])) {
-            // console.log("arrwy[0][0].isArray = " + Array.isArray(array[0][0]));
-            // console.log("array[0][0].length = " + array[0][0].length);
-
-            for (let i = 0; i < array.length * 4; i++){
-                t[i] = new Array();
-                for (let j = 0; j < array[0].length * 4; j++){
-                    t[i][j] = new Array();
-                }
-            }
-
-            buildThree_Z(1, 0, array.length - 1, array, fn);       //rz = 3
-
             return function(from1, to1){
+                if (from1 == to1){ return N;}
                 return function(from2, to2){
-
-                    return sum_x(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, from2, to2 - 1, N, array, fn);
+                    if (from2 == to2){ return N; }
+                    return sum_x(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, from2, to2 - 1, N, array, fn, t);
                 }
             }
         } else if (Array.isArray(array[0])){
-
-            for (let i = 0; i < array.length * 4; i++){
-                t[i] = new Array();
-            }
-
-            build_X(1, 0, array.length - 1, array, fn);
-
             return function(from1, to1){
-                return query(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, array, N, fn);
+                return query(1, 0, array.length - 1, from, to - 1, from1, to1 - 1, array, N, fn, t);
             }
         } else {
-
-            buildOneDTree(1, 0, array.length - 1, array, fn, N);
-
-            return queryOneDTree(1, 0, array.length - 1, from, to - 1, N, fn);
-
+            return queryOneDTree(1, 0, array.length - 1, from, to - 1, N, fn, t);
         }
-
         return result;
     };
 };
@@ -150,6 +151,7 @@ function assignEqually(tree, wishes, stash, elves, gems, week) {
 };
 
 function assignAtLeastOne(tree, wishes, stash, elves, gems, week) {
+
 
     let assignment = {};
 

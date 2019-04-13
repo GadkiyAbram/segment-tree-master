@@ -290,7 +290,7 @@ describe("Функция assignAtLeastOne" , function () {
   });
 
   it("должна распределить по одной драгоценности кому может, если их не хватает", function () {
-    let elves = allElves.slice(0, 30);
+    let elves = allElves.slice(0, 20);
     let gems = allGems.slice(0, 3);
 
     let state = newState(elves, gems);
@@ -420,3 +420,11 @@ describe("Тестируем распределение много недель"
     expect(elvesGems[4]).toBe(60);
   });
 });
+
+
+// let elves = allElves.slice(0, 30);
+// let gems = allGems.slice(0, 20);
+// let wishes = getRandomElfWishes(elves, gems);
+// let stashes = getRandomStashes(gems, 50, 15);
+// let state = runExperiment(elves, gems, wishes, stashes, assignEqually);
+// let elvesGems = state.map(elfGems => elfGems.reduce((carry, week) => carry + week.reduce(sum, 0), 0));
